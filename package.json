@@ -4,7 +4,7 @@
   "description": "A simple api for a courier service based in Lagos",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,13 @@
   "homepage": "https://github.com/Hybeecodes/courier-api#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "config": "^3.1.0",
     "express": "^4.16.4",
     "helmet": "^3.16.0",
-    "mongoose": "^5.5.4"
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.5.4",
+    "morgan": "^1.9.1"
   }
 }
