@@ -1,0 +1,31 @@
+{
+  "name": "courier-api",
+  "version": "1.0.0",
+  "description": "A simple api for a courier service based in Lagos",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hybeecodes/courier-api.git"
+  },
+  "keywords": [
+    "courier",
+    "api",
+    "lagos",
+    "tracking"
+  ],
+  "author": "Hybeecodes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hybeecodes/courier-api/issues"
+  },
+  "homepage": "https://github.com/Hybeecodes/courier-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "helmet": "^3.16.0",
+    "mongoose": "^5.5.4"
+  }
+}
