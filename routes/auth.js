@@ -18,19 +18,5 @@ router.post('/', (req,res) => {
     }
 });
 
-// router.post('/', (req,res) => {
-//     try {
-//         const { user, pass } = req.body;
-//         if(user === 'dev_courier' && pass === 'RTAr3Us{g2K.Z?mW'){
-//             const token = jwt.sign('dev_courier','hdudjhf');
-//             res.status(200).send(token);
-//         }else{
-//             res.status(400).send('Invalid Auth Credentials')
-//         }
-//     } catch (e) {
-//         console.log(e);
-//         res.status(400).send('Invalid Request');
-//     }
-// });
 
 module.exports = router;

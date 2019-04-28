@@ -38,10 +38,16 @@ app.use('/api/v1/auth', authRouter);
 
 app.use(bearerToken());
 app.use(function (req, res, next) {
-  if(jwt.verify(req.token,process.env.JWT_KEY) !== process.env.AUTH_USER){
-      return res.status(403).send('Unauthorized');
-  }
-  next();
+    try {
+        if(jwt.verify(req.token,process.env.JWT_KEY) !== process.env.AUTH_USER){
+            return res.status(403).send('Unauthorized');
+        }
+        next();
+    } catch (e) {
+        console.log(e);
+        return res.status(403).send('Unauthorized');
+    }
+  
 });
 
 app.use('/api/v1/parcels', parcelRouter);
