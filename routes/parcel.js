@@ -43,6 +43,7 @@ router.get('/:id/track', async (req,res) => {
 
 router.get('/', async (req,res) => {
     try {
+        console.log(req.rawHeaders);
         const { status, destinationCity } = req.query;
         let parcels = [];
         if(!status){

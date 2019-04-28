@@ -3,9 +3,12 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const bearerToken = require('express-bearer-token');
+const jwt = require('jsonwebtoken');
 
 const parcelRouter = require('./routes/parcel');
 const customerRouter = require('./routes/customer');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -17,7 +20,8 @@ mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds1491
     console.log('Unable to Connect: ',err);
 });
 
-if(!config.get('JwtKey')){
+
+if(!process.env.JWT_KEY){
     console.error('FATAL ERROR: JwtKey is not defined.');
     process.exit(1);
 }
@@ -29,6 +33,15 @@ app.use(bodyParser.json());
 
 app.get('/', (req,res) => {
     res.send('Welcome to Courier API');
+});
+app.use('/api/v1/auth', authRouter);
+
+app.use(bearerToken());
+app.use(function (req, res, next) {
+  if(jwt.verify(req.token,process.env.JWT_KEY) !== process.env.AUTH_USER){
+      return res.status(403).send('Unauthorized');
+  }
+  next();
 });
 
 app.use('/api/v1/parcels', parcelRouter);
