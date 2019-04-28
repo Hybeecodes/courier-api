@@ -40,10 +40,10 @@ const swaggerUi = require('swagger-ui-express');
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(specs));
 
-// if(!process.env.JWT_KEY){
-//     console.error('FATAL ERROR: JwtKey is not defined.');
-//     process.exit(1);
-// }
+if(!process.env.JWT_KEY){
+    console.error('FATAL ERROR: JwtKey is not defined.');
+    process.exit(1);
+}
 
 app.use(helmet());
 app.use(logger('dev'));
