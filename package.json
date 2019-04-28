@@ -4,7 +4,7 @@
   "description": "A simple api for a courier service based in Lagos",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -28,8 +28,10 @@
     "express": "^4.16.4",
     "helmet": "^3.16.0",
     "joi": "^14.3.1",
+    "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
+    "mongodb": "^3.2.3",
     "mongoose": "^5.5.4",
     "morgan": "^1.9.1"
   }

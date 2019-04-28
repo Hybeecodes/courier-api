@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
 const ParcelSchema = new Schema({
     name: {
@@ -16,20 +17,25 @@ const ParcelSchema = new Schema({
         type: Number,
         required: true
     },
-    destination: {
+    destinationAddress: {
         type: String,
         required: true
     },
-    distance: {
+    destinationCity: {
+        type: String,
+        required: true
+    },
+    destinationDistance: {
         type: Number,
         required: true
     },
     status: {
         type: String,
-        enum: ['pending', 'picked up', 'delivered']
+        enum: ['pending', 'pickedUp', 'delivered'],
+        default: 'pending'
     },
-    timeLeft: {
-        type: String,
+    arrivalTime: {
+        type: Date,
         required: true
     },
     cost: {
@@ -42,12 +48,18 @@ const Parcel = mongoose.model('Parcel', ParcelSchema);
 
 function validateParcel(parcel) {
     const schema = {
-        name: Joi.string().min(3).max(30).required()
+        name: Joi.string().min(3).max(30).required(),
+        owner: Joi.objectId(),
+        weight: Joi.number().min(0).required(),
+        destinationAddress: Joi.string().min(10).required(),
+        destinationCity: Joi.string().min(3).required(),
+        destinationDistance: Joi.number().min(0).required(),
+        status: Joi.string(),
+        arrivalTime: Joi.date().required(),
+        cost: Joi.number().min(0).required()
     };
     return Joi.validate(parcel, schema);
 }
 
-exports= {
-    Parcel,
-    validate: validateParcel
-};
+exports.Parcel = Parcel;
+exports.validate = validateParcel;
