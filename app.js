@@ -38,7 +38,7 @@ const specs = swaggerJsdoc(options);
 
 const swaggerUi = require('swagger-ui-express');
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // if(!process.env.JWT_KEY){
 //     console.error('FATAL ERROR: JwtKey is not defined.');
@@ -50,9 +50,9 @@ app.use(logger('dev'));
 
 app.use(bodyParser.json());
 
-// app.get('/', (req,res) => {
-//     res.send('Welcome to Courier API');
-// });
+app.get('/', (req,res) => {
+    res.send('Welcome to Courier API');
+});
 app.use('/api/v1/auth', authRouter);
 
 app.use(bearerToken());
