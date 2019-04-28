@@ -19,21 +19,40 @@ mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds1491
 .catch((err) => {
     console.log('Unable to Connect: ',err);
 });
+const swaggerJsdoc = require('swagger-jsdoc');
 
+const options = {
+  swaggerDefinition: {
+    // Like the one described here: https://swagger.io/specification/#infoObject
+    info: {
+      title: 'Courier API',
+      version: '1.0.0',
+      description: 'API for courier Service',
+    },
+  },
+  // List of files to be processes. You can also set globs './routes/*.js'
+  apis: ['routes/customer.js','routes/parcel.js'],
+};
 
-if(!process.env.JWT_KEY){
-    console.error('FATAL ERROR: JwtKey is not defined.');
-    process.exit(1);
-}
+const specs = swaggerJsdoc(options);
+
+const swaggerUi = require('swagger-ui-express');
+
+app.use('/', swaggerUi.serve, swaggerUi.setup(specs));
+
+// if(!process.env.JWT_KEY){
+//     console.error('FATAL ERROR: JwtKey is not defined.');
+//     process.exit(1);
+// }
 
 app.use(helmet());
 app.use(logger('dev'));
 
 app.use(bodyParser.json());
 
-app.get('/', (req,res) => {
-    res.send('Welcome to Courier API');
-});
+// app.get('/', (req,res) => {
+//     res.send('Welcome to Courier API');
+// });
 app.use('/api/v1/auth', authRouter);
 
 app.use(bearerToken());
