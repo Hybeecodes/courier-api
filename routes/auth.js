@@ -1,18 +1,13 @@
-const config = require('config');
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
-const cred = {
-    user: 'dev',
-    pass: 'dev'
-}
 
 router.post('/', (req,res) => {
     try {
         const { user, pass } = req.body;
-        if(user === cred.user && pass === cred.pass){
-            const token = jwt.sign(cred.user,config.get('JwtKey'), { expiresIn: '1h' });
+        if(user === process.env.AUTH_USER && pass === process.env.AUTH_PASS){
+            const token = jwt.sign(process.env.AUTH_USER,process.env.JWT_KEY, { expiresIn: '5h' });
             res.status(200).send(token);
         }else{
             res.status(400).send('Invalid Auth Credentials')

@@ -1,4 +1,3 @@
-const config = require('config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
@@ -10,12 +9,12 @@ const customerRouter = require('./routes/customer');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/courier-api', {useNewUrlParser: true, useCreateIndex: true})
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds149146.mlab.com:49146/courier`, {useNewUrlParser: true, useCreateIndex: true})
 .then(() => {
     console.log("Connected to DB Successfully");
 })
 .catch((err) => {
-    console.log('Unable to Connect',err);
+    console.log('Unable to Connect: ',err);
 });
 
 if(!config.get('JwtKey')){
